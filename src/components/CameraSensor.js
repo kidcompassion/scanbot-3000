@@ -6,7 +6,6 @@ class CameraSensor extends React.Component {
 
 	constructor(props){
 		super(props);
-
 		this.state = {
 			localstream: null,
 			videoStream: null,
@@ -14,6 +13,7 @@ class CameraSensor extends React.Component {
 		}
 		// This sets up a spot for the triggered video stream to show
 		this.videoTag = React.createRef()
+		this.takeSnapshot = this.takeSnapshot.bind(this);
 	}
 
 	/**
@@ -40,6 +40,8 @@ class CameraSensor extends React.Component {
 	 * Renders screencap from video stream to page
 	 */
 	takeSnapshot = () => {
+		const currComponent = this;
+		
 		// https://gist.github.com/anantn/1852070
 		const img = document.querySelector('img') || document.createElement('img');
 		const video = document.querySelector('video');
@@ -67,58 +69,96 @@ class CameraSensor extends React.Component {
 
 		// TO DO Break Quagga functionality into it's own method once we know it works
 
-		Quagga.init({
-			inputStream : {
-				name : "Live",
-				type : "LiveStream",
-				 // Or '#yourElement' (optional)
-				target: document.querySelector('#interactive') 
-			},
-			decoder : {
-				readers : ["code_128_reader"]
-			}
-		}, function(err) {
-			if (err) {
-				console.log(err);
-				return
-			}
-			console.log("Initialization finished. Ready to start");
-			Quagga.start();
-			/*this.setState({
-				scannerIsRunning: true
-			});*/
-		});
-
-		Quagga.onProcessed(function (result) {
-			var drawingCtx = Quagga.canvas.ctx.overlay,
-			drawingCanvas = Quagga.canvas.dom.overlay;
-
-			if (result) {
-				if (result.boxes) {
-					drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-					result.boxes.filter(function (box) {
-						return box !== result.box;
-					}).forEach(function (box) {
-						Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
-					});
-				}
-
-				if (result.box) {
-					Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
-				}
-
-				if (result.codeResult && result.codeResult.code) {
-					Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
-				}
-			}
-		});
-
-
-		Quagga.onDetected(function (result) {
-			console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-		});
+		
+				Quagga.init({
+					inputStream: {
+						name: "Live",
+						type: "LiveStream",
+						target: document.querySelector('#scanner-container'),
+						constraints: {
+							width: 480,
+							height: 320,
+							facingMode: "environment"
+						},
+					},
+					decoder: {
+						readers: [
+							"code_128_reader",
+							"ean_reader",
+							"ean_8_reader",
+							"code_39_reader",
+							"code_39_vin_reader",
+							"codabar_reader",
+							"upc_reader",
+							"upc_e_reader",
+							"i2of5_reader"
+						],
+						debug: {
+							showCanvas: true,
+							showPatches: true,
+							showFoundPatches: true,
+							showSkeleton: true,
+							showLabels: true,
+							showPatchLabels: true,
+							showRemainingPatchLabels: true,
+							boxFromPatches: {
+								showTransformed: true,
+								showTransformedBox: true,
+								showBB: true
+							}
+						}
+					},
 	
-
+				}, function (err) {
+					if (err) {
+						console.log(err);
+						return
+					}
+	
+					console.log("Initialization finished. Ready to start");
+					Quagga.start();
+	
+					// Set flag to is running
+					currComponent.setState({
+						scannerIsRunning:true
+					});
+				});
+	
+				Quagga.onProcessed(function (result) {
+					console.log('does this ever fire'); //loop
+					var drawingCtx = Quagga.canvas.ctx.overlay,
+					drawingCanvas = Quagga.canvas.dom.overlay;
+					console.log(result);
+					if (result !== undefined) {
+						if (result.boxes) {
+							drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+							result.boxes.filter(function (box) {
+								return box !== result.box;
+							}).forEach(function (box) {
+								Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+							});
+						}
+	
+						if (result.box) {
+							console.log('resultbox', result.box);
+							Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+						}
+	
+						if (result.codeResult && result.codeResult.code) {
+							console.log('coderesult', result);
+							Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+						}
+					}
+				});
+	
+	
+				Quagga.onDetected(function (result) {
+					console.log('how about does this ever fire');
+					console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+					Quagga.stop();
+				});
+			
+	
 
 
 
