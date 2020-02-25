@@ -140,7 +140,7 @@ class CameraSensor extends React.Component {
 						}
 	
 						if (result.box) {
-							console.log('resultbox', result.box);
+							//console.log('resultbox', result.box);
 							Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
 						}
 	
