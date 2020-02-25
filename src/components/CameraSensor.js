@@ -175,8 +175,6 @@ class CameraSensor extends React.Component {
 		  //TO DO put quagga stop into dedicated method once we know it works
 		  Quagga.stop();
 	}
-
-
 	render(){
 		return(
 			<div className="row">
