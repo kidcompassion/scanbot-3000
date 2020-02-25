@@ -64,7 +64,7 @@ class CameraSensor extends React.Component {
 		
 		imgResult = img.getAttribute('src');
 	 
-		  console.log(img.getAttribute('src'));
+		 // console.log(img.getAttribute('src'));
 		  
 
 		// TO DO Break Quagga functionality into it's own method once we know it works
@@ -125,10 +125,10 @@ class CameraSensor extends React.Component {
 				});
 	
 				Quagga.onProcessed(function (result) {
-					console.log('does this ever fire'); //loop
+					//console.log('does this ever fire'); //loop
 					var drawingCtx = Quagga.canvas.ctx.overlay,
 					drawingCanvas = Quagga.canvas.dom.overlay;
-					console.log(result);
+					//console.log(result);
 					if (result !== undefined) {
 						if (result.boxes) {
 							drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
@@ -145,7 +145,7 @@ class CameraSensor extends React.Component {
 						}
 	
 						if (result.codeResult && result.codeResult.code) {
-							console.log('coderesult', result);
+							//console.log('coderesult', result);
 							Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
 						}
 					}
@@ -153,35 +153,12 @@ class CameraSensor extends React.Component {
 	
 	
 				Quagga.onDetected(function (result) {
-					console.log('how about does this ever fire');
+					document.querySelector('.component--sensor').style.display = 'none';
+					document.querySelector('.snapshot img').style.display = 'block';
+					//console.log('how about does this ever fire');
 					console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
 					Quagga.stop();
 				});
-			
-	
-
-
-
-	}
-
-
-
-	decodeBar = () => {
-		Quagga.decodeSingle({
-			decoder: {
-				readers: ["code_128_reader"] // List of active readers
-			},
-			locate: true, // try to locate the barcode in the image
-			// You can set the path to the image in your server
-			// or using it's base64 data URI representation data:image/jpg;base64, + data
-			src: '/barcode_image.jpg'
-		}, function(result){
-			if(result.codeResult) {
-				console.log("result", result.codeResult.code);
-			} else {
-				console.log("not detected");
-			}
-		});
 
 	}
 
@@ -205,14 +182,15 @@ class CameraSensor extends React.Component {
 			<div className="row">
 				<div className = "col-6">
 					
-				
-				<div id="interactive" className="viewport snapshot">
-				<video 
-						className="component--sensor"
-				        ref={this.videoTag}
-				        autoPlay
-				      	/>
-				</div>
+					<div id="interactive" className="viewport snapshot">
+						
+						<video 
+								className="component--sensor"
+								ref={this.videoTag}
+								autoPlay
+								/>
+								<div className="imgSnapshot"></div>
+					</div>
 				</div>
 				<div className = "col-8 mx-auto">
 					<button onClick={this.videoOn}>

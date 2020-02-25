@@ -13,3 +13,7 @@
     left: 0;
     top: 0;
 }
+
+.snapshot img{
+  display: none;
+}
