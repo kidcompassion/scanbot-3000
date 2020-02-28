@@ -21,7 +21,15 @@ class CameraSensor extends React.Component {
 	 * Grab the camera stream
 	 */
 	videoOn = () =>{
-		const mediaType = {video: { width: 1280, height: 720 }}; // Preferred capture size
+		const mediaType = {
+							video: { 
+								width: 1280, 
+								height: 720 
+							},
+							facingMode: { 
+								exact: 'environment'
+							}
+						}; // Preferred capture size
 		
 		// Get user media is the HTML5 api that lets us use the camera
 		navigator.mediaDevices.getUserMedia(mediaType)
