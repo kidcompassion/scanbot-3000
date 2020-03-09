@@ -9,7 +9,8 @@ class CameraSensor extends React.Component {
 		this.state = {
 			localstream: null,
 			videoStream: null,
-			scannerIsRunning: false
+			scannerIsRunning: false,
+			scanResults: null
 		}
 		// This sets up a spot for the triggered video stream to show
 		this.videoTag = React.createRef()
@@ -91,10 +92,11 @@ class CameraSensor extends React.Component {
 					},
 					decoder: {
 						readers: [
+							"code_39_reader",
 							"code_128_reader",
 							"ean_reader",
 							"ean_8_reader",
-							"code_39_reader",
+							
 							"code_39_vin_reader",
 							"codabar_reader",
 							"upc_reader",
@@ -164,7 +166,9 @@ class CameraSensor extends React.Component {
 					document.querySelector('.component--sensor').style.display = 'none';
 					document.querySelector('.snapshot img').style.display = 'block';
 					//console.log('how about does this ever fire');
-					console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+					//console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+					currComponent.setState({scanResults: result});
+					console.log(currComponent.state);
 					Quagga.stop();
 				});
 
@@ -187,32 +191,45 @@ class CameraSensor extends React.Component {
 		return(
 			<div className="row">
 				<div className = "col-6">
-					
 					<div id="interactive" className="viewport snapshot">
-						
 						<video 
 								className="component--sensor"
 								ref={this.videoTag}
 								autoPlay
-								/>
-								<div className="imgSnapshot"></div>
+							/>
+							<div className="imgSnapshot"></div>
+					</div>
+					<div className="col-12 mt-4 text-center">
+						<button onClick={this.videoOn}>
+							Turn on Camera
+						</button>
+
+						<button onClick={this.takeSnapshot}>
+							Take snapshot
+						</button>
+
+						<button onClick={this.videoOff}>
+							Turn off camera
+						</button>
 					</div>
 				</div>
-				<div className = "col-8 mx-auto">
-					<button onClick={this.videoOn}>
-						Turn on Camera
-					</button>
-
-					<button onClick={this.takeSnapshot}>
-						Take snapshot
-					</button>
-
-					<button onClick={this.videoOff}>
-						Turn off camera
-					</button>
+				<div className="col-6">
+					<h2>Results</h2>
+						{this.state.scanResults ?
+						<p>Code: {this.state.scanResults.codeResult.code }</p>
+						:''}
+						{this.state.scanResults ?
+							<p>Format: {this.state.scanResults.codeResult.format }</p>
+						:''}
+						{this.state.scanResults ?
+							<p>Start: {this.state.scanResults.codeResult.start }</p>
+						:''}
+						{this.state.scanResults ?
+							<p>End: {this.state.scanResults.codeResult.end }</p>
+						:''}
 				</div>
 			</div>
-			)
+		)
 	}
 }
 
