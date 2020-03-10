@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/scanbot-3000/static/css/main.1876df9a.chunk.css",
-    "main.js": "/scanbot-3000/static/js/main.da1b514e.chunk.js",
-    "main.js.map": "/scanbot-3000/static/js/main.da1b514e.chunk.js.map",
+    "main.js": "/scanbot-3000/static/js/main.84216758.chunk.js",
+    "main.js.map": "/scanbot-3000/static/js/main.84216758.chunk.js.map",
     "runtime-main.js": "/scanbot-3000/static/js/runtime-main.0ce8e870.js",
     "runtime-main.js.map": "/scanbot-3000/static/js/runtime-main.0ce8e870.js.map",
     "static/js/2.90c51c10.chunk.js": "/scanbot-3000/static/js/2.90c51c10.chunk.js",
     "static/js/2.90c51c10.chunk.js.map": "/scanbot-3000/static/js/2.90c51c10.chunk.js.map",
     "index.html": "/scanbot-3000/index.html",
-    "precache-manifest.bf93cc26a6c2e491624a5cdcff164e6e.js": "/scanbot-3000/precache-manifest.bf93cc26a6c2e491624a5cdcff164e6e.js",
+    "precache-manifest.8bc0f9d39da7876e30b500c9d0d78afa.js": "/scanbot-3000/precache-manifest.8bc0f9d39da7876e30b500c9d0d78afa.js",
     "service-worker.js": "/scanbot-3000/service-worker.js",
     "static/css/main.1876df9a.chunk.css.map": "/scanbot-3000/static/css/main.1876df9a.chunk.css.map",
     "static/js/2.90c51c10.chunk.js.LICENSE.txt": "/scanbot-3000/static/js/2.90c51c10.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0ce8e870.js",
     "static/js/2.90c51c10.chunk.js",
     "static/css/main.1876df9a.chunk.css",
-    "static/js/main.da1b514e.chunk.js"
+    "static/js/main.84216758.chunk.js"
   ]
 }

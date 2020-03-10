@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/scanbot-3000/precache-manifest.bf93cc26a6c2e491624a5cdcff164e6e.js"
+  "/scanbot-3000/precache-manifest.8bc0f9d39da7876e30b500c9d0d78afa.js"
 );
 
 self.addEventListener('message', (event) => {
