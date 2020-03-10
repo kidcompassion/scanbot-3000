@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "47a0bd2d45f664908807a81cf8f195b1",
+    "revision": "8e34b76ca7329fac6ca2c4d89f545e79",
     "url": "/scanbot-3000/index.html"
   },
   {
-    "revision": "caaa60ecc5075118a74e",
+    "revision": "9623aee10b65d14b3793",
     "url": "/scanbot-3000/static/css/main.1876df9a.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/scanbot-3000/static/js/2.90c51c10.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "caaa60ecc5075118a74e",
-    "url": "/scanbot-3000/static/js/main.f61ab7c6.chunk.js"
+    "revision": "9623aee10b65d14b3793",
+    "url": "/scanbot-3000/static/js/main.da1b514e.chunk.js"
   },
   {
     "revision": "be43aeb704fd648732fc",
